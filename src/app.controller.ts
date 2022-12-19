@@ -22,7 +22,7 @@ export class AppController {
 
     const cookieOptions = cookieDomain 
     ? { 
-      Domain: cookieDomain,
+      domain: cookieDomain,
       httpOnly: true,
     }
     : {}
