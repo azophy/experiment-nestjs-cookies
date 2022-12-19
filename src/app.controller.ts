@@ -1,5 +1,5 @@
 import { Controller, Get, Req, Res } from '@nestjs/common';
-import { Request, Response } from 'express'
+import { CookieOptions, Request, Response } from 'express'
 
 @Controller()
 export class AppController {
@@ -20,14 +20,15 @@ export class AppController {
     console.log('masuk')
     const cookieDomain = process.env.COOKIE_DOMAIN || null
 
-    const cookieOptions = cookieDomain 
+    const cookieOptions: CookieOptions = cookieDomain 
     ? { 
       domain: cookieDomain,
       httpOnly: true,
+      sameSite: "none",
     }
     : {}
 
-    res.cookie('coba', Date.now(), cookieOptions)
+    res.cookie('coba', Date.now().toString(), cookieOptions)
     
     return JSON.stringify({ status: 'ok'})
   }
