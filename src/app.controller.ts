@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res } from '@nestjs/common';
+import { Controller, Get, Query, Redirect, Req, Res } from '@nestjs/common';
 import { CookieOptions, Request, Response } from 'express'
 
 @Controller()
@@ -35,5 +35,21 @@ export class AppController {
     })
     
     return JSON.stringify({ status: 'ok'})
+  }
+
+  @Get('/set_cookies_and_redirect')
+  @Redirect('', 302)
+  getSetCookiesAndRedirect(
+    @Res({ passthrough: true }) res: Response,
+    @Query() query: { redirect_url: string }
+  ) {
+    console.log('masuk getSetCookiesAndRedirect')
+
+    res.cookie('coba_redirect', Date.now().toString(), {
+      httpOnly: true,
+      sameSite: "none",
+    })
+    
+    return { url: query.redirect_url }
   }
 }
