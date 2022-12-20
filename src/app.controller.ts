@@ -41,19 +41,21 @@ export class AppController {
   @Redirect('', 302)
   getSetCookiesAndRedirect(
     @Res({ passthrough: true }) res: Response,
-    @Query() query: { redirect_url: string }
+    @Query() query: { redirect_url: string, cookie_domain?: string }
   ) {
     console.log('masuk getSetCookiesAndRedirect')
 
     /* ini harusnya akan mereturn url host utamanya. misal kalau 
     redirect_url = 'http://localhost:3005/contoh.html', host
     nya adalah 'localhost:3005 */
-    const cookie_domain = (new URL(query.redirect_url)).host;
+    const final_cookie_domain = query.cookie_domain 
+      ? query.cookie_domain
+      : '.' + (new URL(query.redirect_url)).host;
 
     res.cookie('coba_redirect', Date.now().toString(), {
       httpOnly: true,
       sameSite: "none",
-      domain: '.' + cookie_domain,
+      domain: final_cookie_domain,
     })
     
     return { url: query.redirect_url }
