@@ -27,9 +27,12 @@ export class AppController {
       //sameSite: "none",
     //}
     //: {}
-    const cookieOptions = { httpOnly: true, sameSite: 'None' }
+    // const cookieOptions = { httpOnly: true, sameSite: "none" }
 
-    res.cookie('coba', Date.now().toString(), cookieOptions)
+    res.cookie('coba', Date.now().toString(), {
+      httpOnly: true,
+      sameSite: "none",
+    })
     
     return JSON.stringify({ status: 'ok'})
   }
