@@ -32,6 +32,7 @@ export class AppController {
     res.cookie('coba', Date.now().toString(), {
       httpOnly: true,
       sameSite: "none",
+      secure: true,
     })
     
     return JSON.stringify({ status: 'ok'})
@@ -45,18 +46,20 @@ export class AppController {
   ) {
     console.log('masuk getSetCookiesAndRedirect')
 
-    /* ini harusnya akan mereturn url host utamanya. misal kalau 
-    redirect_url = 'http://localhost:3005/contoh.html', host
-    nya adalah 'localhost:3005 */
-    const final_cookie_domain = query.cookie_domain 
-      ? query.cookie_domain
-      : '.' + (new URL(query.redirect_url)).host;
-
-    res.cookie('coba_redirect', Date.now().toString(), {
-      httpOnly: true,
-      sameSite: "none",
-      domain: final_cookie_domain,
-    })
+    if (query.cookie_domain) {
+      res.cookie('coba_redirect', Date.now().toString(), {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        domain: query.cookie_domain,
+      })
+    } else {
+      res.cookie('coba_redirect', Date.now().toString(), {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      })
+    }
     
     return { url: query.redirect_url }
   }
