@@ -27,7 +27,7 @@ export class AppController {
       //sameSite: "none",
     //}
     //: {}
-    const cookieOptions = { httpOnly: true }
+    const cookieOptions = { httpOnly: true, sameSite: 'None' }
 
     res.cookie('coba', Date.now().toString(), cookieOptions)
     
