@@ -46,14 +46,14 @@ export class AppController {
     console.log('masuk getSetCookiesAndRedirect')
 
     /* ini harusnya akan mereturn url host utamanya. misal kalau 
-    redirect_url = 'http://localhost:3005/contoh.html', origin
-    nya adalah 'http://localhost:3005 */
-    const cookie_domain = (new URL(query.redirect_url)).origin;
+    redirect_url = 'http://localhost:3005/contoh.html', host
+    nya adalah 'localhost:3005 */
+    const cookie_domain = (new URL(query.redirect_url)).host;
 
     res.cookie('coba_redirect', Date.now().toString(), {
       httpOnly: true,
       sameSite: "none",
-      domain: cookie_domain,
+      domain: '.' + cookie_domain,
     })
     
     return { url: query.redirect_url }
