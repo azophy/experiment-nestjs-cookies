@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Redirect, Req, Res } from '@nestjs/common';
-import { CookieOptions, Request, Response } from 'express'
+import { Request, Response } from 'express'
 
 @Controller()
 export class AppController {

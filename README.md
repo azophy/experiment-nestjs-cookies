@@ -5,7 +5,7 @@ A small backend for experimenting with cookie storage across different domains.
 
 The frontend example is in `/frontend` folder.
 
-![Web Screenshot](/docs/scheenshot.png?raw=true "Screenshot of web frontend")
+![Web Screenshot](/docs/screenshot.png?raw=true "Screenshot of web frontend")
 
 ## Stack
 
