@@ -5,31 +5,16 @@ import { CookieOptions, Request, Response } from 'express'
 export class AppController {
   constructor() {}
 
-  @Get()
-  getHello(): string {
-    return 'Hellooooo';
-  }
-
-  @Get('/cek_cookies')  
-  getCekCookies(@Req() req: Request): string {
+  @Get('/get_cookies')  
+  getGetCookies(@Req() req: Request): string {
     return JSON.stringify(req.cookies)
   }
 
   @Get('/set_cookies')  
   getSetCookies(@Res({ passthrough: true }) res: Response): string {
-    console.log('masuk')
-    //const cookieDomain = process.env.COOKIE_DOMAIN || null
+    console.log('accessing /set_cookies')
 
-    //const cookieOptions: CookieOptions = cookieDomain 
-    //? { 
-      //domain: cookieDomain,
-      //httpOnly: true,
-      //sameSite: "none",
-    //}
-    //: {}
-    // const cookieOptions = { httpOnly: true, sameSite: "none" }
-
-    res.cookie('coba', Date.now().toString(), {
+    res.cookie('example_cookie', Date.now().toString(), {
       httpOnly: true,
       sameSite: "none",
       secure: true,
@@ -44,17 +29,17 @@ export class AppController {
     @Res({ passthrough: true }) res: Response,
     @Query() query: { redirect_url: string, cookie_domain?: string }
   ) {
-    console.log('masuk getSetCookiesAndRedirect')
+    console.log('access getSetCookiesAndRedirect')
 
     if (query.cookie_domain) {
-      res.cookie('coba_redirect', Date.now().toString(), {
+      res.cookie('example_cookie_redirect', Date.now().toString(), {
         httpOnly: true,
         sameSite: "none",
         secure: true,
         domain: query.cookie_domain,
       })
     } else {
-      res.cookie('coba_redirect', Date.now().toString(), {
+      res.cookie('example_cookie_redirect', Date.now().toString(), {
         httpOnly: true,
         sameSite: "none",
         secure: true,
